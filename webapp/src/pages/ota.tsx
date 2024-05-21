@@ -156,8 +156,8 @@ const Ota: React.FC = () => {
         expected_index = index;
         await BleClient.write(
           deviceId,
-          "19b10000-e8f2-537e-4f6c-d104768a1214",
-          "19b10001-e8f2-537e-4f6c-d104768a1214",
+          "00008018-0000-1000-8000-00805f9b34fb",
+          "00008020-0000-1000-8000-00805f9b34fb",
           numbersToDataView(Array.prototype.slice.call(packet))
         );
         if (f_last) {
@@ -256,7 +256,7 @@ const Ota: React.FC = () => {
       setDis(false);
       await BleClient.initialize();
       clientDevice = await BleClient.requestDevice({
-        services: ["19b10000-e8f2-537e-4f6c-d104768a1214"],
+        services: ["00008018-0000-1000-8000-00805f9b34fb"],
         optionalServices: [numberToUUID(0x180a)],
       });
       
@@ -267,16 +267,16 @@ const Ota: React.FC = () => {
       console.log("Connected to device");
       await BleClient.startNotifications(
         clientDevice.deviceId,
-        "19b10000-e8f2-537e-4f6c-d104768a1214",
-        "19b10001-e8f2-537e-4f6c-d104768a1214",
+        "00008018-0000-1000-8000-00805f9b34fb",
+        "00008020-0000-1000-8000-00805f9b34fb",
         (value) => {
           parseFirmwareNotification(value);
         }
       );
       await BleClient.startNotifications(
         clientDevice.deviceId,
-        "19b10000-e8f2-537e-4f6c-d104768a1214",
-        "19b10002-e8f2-537e-4f6c-d104768a1214",
+        "00008018-0000-1000-8000-00805f9b34fb",
+        "00008022-0000-1000-8000-00805f9b34fb",
         (value) => {
           parseCommandNotification(value);
         }
@@ -445,8 +445,8 @@ const Ota: React.FC = () => {
     cmdStatus = 0;
     await BleClient.write(
       clientDevice.deviceId,
-      "19b10000-e8f2-537e-4f6c-d104768a1214",
-      "19b10002-e8f2-537e-4f6c-d104768a1214",
+      "00008018-0000-1000-8000-00805f9b34fb",
+      "00008022-0000-1000-8000-00805f9b34fb",
       numbersToDataView(Array.prototype.slice.call(buffer))
     );
     let cmd_ack = await waitForAnsCommand(5000);
@@ -472,8 +472,8 @@ const Ota: React.FC = () => {
 	cmdStatus = 0;
 	await BleClient.write(
 	clientDevice.deviceId,
-	"19b10000-e8f2-537e-4f6c-d104768a1214",
-	"19b10002-e8f2-537e-4f6c-d104768a1214",
+	"00008018-0000-1000-8000-00805f9b34fb",
+	"00008022-0000-1000-8000-00805f9b34fb",
 	numbersToDataView(Array.prototype.slice.call(buffer))
 	);
 	cmd_ack = await waitForAnsCommand(5000);
